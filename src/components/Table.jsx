@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Table extends Component {
@@ -28,7 +29,12 @@ class Table extends Component {
                   <td>{(+elem.value).toFixed(2)}</td>
                   <td>{elem.exchangeRates[elem.currency].name}</td>
                   <td>{(+elem.exchangeRates[elem.currency].ask).toFixed(2)}</td>
-                  <td>{(+elem.exchangeRates[elem.currency].ask * +elem.value).toFixed(2)}</td>
+                  <td>
+                    {
+                      (+elem.exchangeRates[elem.currency].ask * +elem.value).toFixed(2)
+                    }
+
+                  </td>
                   <td>Real</td>
                   {/* <td>test</td> */}
                 </tr>
@@ -43,5 +49,10 @@ class Table extends Component {
 const mapStateToProps = (state) => ({
   requestExpenses: state.wallet.expenses,
 });
+
+Table.propTypes = {
+  requestExpenses: PropTypes.arrayOf().isRequired,
+  map: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps)(Table);
