@@ -1,4 +1,4 @@
-import { GET_COIN } from '../actions';
+import { GET_COIN, ASK_ACTION } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -13,6 +13,11 @@ function wallet(state = INITIAL_STATE, action) {
   case GET_COIN: return {
     ...state,
     currencies: Object.keys(action.state).filter((elem) => elem !== 'USDT'),
+  };
+  case ASK_ACTION: return {
+    ...state,
+    expenses: [...state.expenses, action.expense],
+
   };
   default: return state;
   }

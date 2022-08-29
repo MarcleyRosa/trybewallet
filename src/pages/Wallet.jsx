@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import store from '../redux/store';
 import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   handleChange = () => {
@@ -19,6 +20,7 @@ class Wallet extends React.Component {
       <div>
         <Header />
         <WalletForm />
+        <Table />
         <div data-testid="email-field">{ requestEmail }</div>
         <div data-testid="total-field">{ values }</div>
         <div data-testid="header-currency-field">{ currency }</div>
