@@ -13,7 +13,7 @@ class Wallet extends React.Component {
   };
 
   render() {
-    const values = 0;
+    // const values = 0;
     const currency = 'BRL';
     const { requestEmail } = this.props;
     return (
@@ -22,7 +22,7 @@ class Wallet extends React.Component {
         <WalletForm />
         <Table />
         <div data-testid="email-field">{ requestEmail }</div>
-        <div data-testid="total-field">{ values }</div>
+        {/* <div data-testid="total-field">{ values }</div> */}
         <div data-testid="header-currency-field">{ currency }</div>
         <button onClick={ this.handleChange } type="button">EN</button>
       </div>

@@ -13,10 +13,10 @@ export const apiCoin = (state) => ({
   state,
 });
 
-// export const expensesAction = (state) => ({
-//   type: CHANGE_EXPENSES,
-//   state,
-// });
+export const expensesAction = (state) => ({
+  type: CHANGE_EXPENSES,
+  state,
+});
 
 // export const askAcion = (state) => ({
 //   type: ASK_ACTION,

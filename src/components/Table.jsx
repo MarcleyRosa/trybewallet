@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { expensesAction } from '../redux/actions';
 
 class Table extends Component {
+  handleClick = ({ target }) => {
+    const { requestExpenses, newExpenses } = this.props;
+    console.log(requestExpenses);
+    const filterId = requestExpenses.filter((elem) => elem.id !== +target.id);
+    console.log(filterId);
+    newExpenses(filterId);
+  };
+
   render() {
     const { requestExpenses } = this.props;
     console.log(requestExpenses);
@@ -10,19 +19,18 @@ class Table extends Component {
       <div>
         <table>
           <tbody>
-
-            <td>Descrição</td>
-            <td>Tag</td>
-            <td>Método de pagamento</td>
-            <td>Valor</td>
-            <td>Moeda</td>
-            <td>Câmbio utilizado</td>
-            <td>Valor convertido</td>
-            <td>Moeda de conversão</td>
-            <td>Editar/Excluir</td>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
             { requestExpenses
-              .map((elem, i) => (
-                <tr key={ i }>
+              .map((elem) => (
+                <tr key={ elem.id }>
                   <td>{elem.description}</td>
                   <td>{elem.tag}</td>
                   <td>{elem.method}</td>
@@ -36,7 +44,16 @@ class Table extends Component {
 
                   </td>
                   <td>Real</td>
-                  {/* <td>test</td> */}
+                  <td>
+                    <button
+                      onClick={ this.handleClick }
+                      type="button"
+                      data-testid="delete-btn"
+                      id={ elem.id }
+                    >
+                      Excluir
+                    </button>
+                  </td>
                 </tr>
               ))}
           </tbody>
@@ -50,9 +67,14 @@ const mapStateToProps = (state) => ({
   requestExpenses: state.wallet.expenses,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  newExpenses: (state) => dispatch(expensesAction(state)),
+});
+
 Table.propTypes = {
-  requestExpenses: PropTypes.arrayOf().isRequired,
+  requestExpenses: PropTypes.arrayOf(PropTypes.string).isRequired,
   map: PropTypes.func.isRequired,
+  newExpenses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);
