@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 class Header extends Component {
   render() {
     const { requestAsk = [] } = this.props;
-    console.log(requestAsk);
     const ask = requestAsk
       .reduce((acc, curr) => +acc
        + (+curr.exchangeRates[curr.currency].ask * +curr.value), 0).toFixed(2);

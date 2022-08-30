@@ -2,19 +2,33 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { expensesAction } from '../redux/actions';
+// import WalletForm from './WalletForm';
 
 class Table extends Component {
-  handleClick = ({ target }) => {
+  // state = {
+  //   edit: false,
+  // };
+
+  buttonDelete = ({ target }) => {
     const { requestExpenses, newExpenses } = this.props;
-    console.log(requestExpenses);
     const filterId = requestExpenses.filter((elem) => elem.id !== +target.id);
-    console.log(filterId);
     newExpenses(filterId);
   };
 
+  buttonEdit = ({ target }) => {
+    console.log(target);
+    // this.setState(() => ({
+    //   edit: true,
+    // }));
+  };
+
+  // handleChange = () => {
+  //   console.log();
+  // };
+
   render() {
     const { requestExpenses } = this.props;
-    console.log(requestExpenses);
+    // const { edit } = this.state;
     return (
       <div>
         <table>
@@ -39,14 +53,22 @@ class Table extends Component {
                   <td>{(+elem.exchangeRates[elem.currency].ask).toFixed(2)}</td>
                   <td>
                     {
-                      (+elem.exchangeRates[elem.currency].ask * +elem.value).toFixed(2)
+                      (+elem.exchangeRates[elem.currency].ask * +elem.value)
+                        .toFixed(2)
                     }
-
                   </td>
                   <td>Real</td>
                   <td>
                     <button
-                      onClick={ this.handleClick }
+                      onClick={ this.buttonEdit }
+                      type="button"
+                      data-testid="edit-btn"
+                      id={ elem.id }
+                    >
+                      Editar
+                    </button>
+                    <button
+                      onClick={ this.buttonDelete }
                       type="button"
                       data-testid="delete-btn"
                       id={ elem.id }
@@ -58,6 +80,7 @@ class Table extends Component {
               ))}
           </tbody>
         </table>
+        {/* { edit && <WalletForm /> } */}
       </div>
     );
   }
