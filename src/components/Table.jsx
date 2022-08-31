@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { expensesAction } from '../redux/actions';
-// import WalletForm from './WalletForm';
+import { expensesAction, expensesEditAction } from '../redux/actions';
 
 class Table extends Component {
-  // state = {
-  //   edit: false,
-  // };
-
   buttonDelete = ({ target }) => {
     const { requestExpenses, newExpenses } = this.props;
     const filterId = requestExpenses.filter((elem) => elem.id !== +target.id);
@@ -16,19 +11,12 @@ class Table extends Component {
   };
 
   buttonEdit = ({ target }) => {
-    console.log(target);
-    // this.setState(() => ({
-    //   edit: true,
-    // }));
+    const { editExpenses } = this.props;
+    editExpenses(true, target.id);
   };
-
-  // handleChange = () => {
-  //   console.log();
-  // };
 
   render() {
     const { requestExpenses } = this.props;
-    // const { edit } = this.state;
     return (
       <div>
         <table>
@@ -80,7 +68,6 @@ class Table extends Component {
               ))}
           </tbody>
         </table>
-        {/* { edit && <WalletForm /> } */}
       </div>
     );
   }
@@ -92,12 +79,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   newExpenses: (state) => dispatch(expensesAction(state)),
+  editExpenses: (state, id) => dispatch(expensesEditAction(state, id)),
 });
 
 Table.propTypes = {
   requestExpenses: PropTypes.arrayOf(PropTypes.string).isRequired,
   map: PropTypes.func.isRequired,
   newExpenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  editExpenses: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

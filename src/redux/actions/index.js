@@ -2,6 +2,8 @@ export const SAVE_EMAIL = 'CHANGE_EMAIL';
 export const GET_COIN = 'GET_COIN';
 export const CHANGE_EXPENSES = 'CHANGE_EXPENSES';
 export const ASK_ACTION = 'ASK_ACTION';
+export const EXPENSES_EDIT = 'EXPENSES_EDIT';
+export const ADC_EDIT = 'ADC_EDIT';
 
 export const saveEmailAction = (state) => ({
   type: SAVE_EMAIL,
@@ -18,10 +20,16 @@ export const expensesAction = (state) => ({
   state,
 });
 
-// export const askAcion = (state) => ({
-//   type: ASK_ACTION,
-//   state,
-// });
+export const expensesEditAction = (state, id) => ({
+  type: EXPENSES_EDIT,
+  state,
+  id,
+});
+
+export const adcExpensesAction = (state) => ({
+  type: ADC_EDIT,
+  state,
+});
 
 export const fetchApiCoin = () => {
   const url = 'https://economia.awesomeapi.com.br/json/all';
