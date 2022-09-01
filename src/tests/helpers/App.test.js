@@ -1,4 +1,5 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import fetchMockJest from 'fetch-mock-jest';
 import userEvent from '@testing-library/user-event';
 import App from '../../App';
 import renderWithRouterAndRedux from './renderWith';
@@ -27,12 +28,18 @@ describe('Tests do componente App', () => {
 
     userEvent.click(buttonAdcDesp);
 
-    global.fetch = jest.fn(async () => Promise.resolve({
-      json: async () => Promise.resolve(mockData),
-    }));
+    // jest.fn().mockResolvedValue({
+    //   json: jest.fn().mockResolvedValue(mockData),
+    // });
 
-    await waitFor(() => expect(global.fetch).toBeCalledTimes(1));
-    await waitFor(() => expect(global.fetch).toBeCalledWith('https://economia.awesomeapi.com.br/json/all'));
+    // global.fetch = jest.fn(async () => Promise.resolve({
+    //   json: async () => Promise.resolve(mockData),
+    // }));
+
+    // await waitFor(() => expect(global.fetch).toBeCalledTimes(1));
+    // await waitFor(() => expect(global.fetch).toBeCalledWith('https://economia.awesomeapi.com.br/json/all'));
+
+    fetchMockJest.getOnce('https://economia.awesomeapi.com.br/json/all', mockData);
 
     const { location: { pathname } } = history;
 
@@ -62,5 +69,38 @@ describe('Tests do componente App', () => {
     const { location: { pathname } } = history;
 
     expect(pathname).toBe('/carteira');
+  });
+  it('test editar despesa', () => {
+    const initialState = {
+      user: {
+        email: 'tryber@teste.com',
+      },
+      wallet: {
+        currencies: [
+          Object.keys(mockData),
+        ],
+        expenses: [
+          {
+            id: 0,
+            value: '1',
+            description: '1',
+            currency: 'USD',
+            method: 'Cartão de crédito',
+            tag: 'Trabalho',
+            exchangeRates: mockData,
+          },
+        ],
+        editor: true,
+        idToEdit: 0,
+      },
+    };
+    renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialState });
+
+    const buttonEdit = screen.getAllByRole('button', { name: /editar/i });
+    console.log(buttonEdit);
+
+    expect(buttonEdit[1]).toBeInTheDocument();
+
+    userEvent.click(buttonEdit[1]);
   });
 });

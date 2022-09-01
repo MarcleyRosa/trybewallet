@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import fetchMock from 'fetch-mock-jest';
-// import fetchMockJest from 'fetch-mock-jest';
+import fetchMockJest from 'fetch-mock-jest';
 import mockData from './mockData';
 import App from '../../App';
 import renderWithRouterAndRedux from './renderWith';
@@ -40,7 +40,7 @@ describe('Test do componente Table.js', () => {
 
     expect(buttonDespesa).toBeInTheDocument();
 
-    // fetchMockJest.getOnce('https://economia.awesomeapi.com.br/json/all', mockData);
+    fetchMockJest.getOnce('https://economia.awesomeapi.com.br/json/all', mockData);
 
     userEvent.click(buttonDespesa);
 
