@@ -69,12 +69,13 @@ class WalletForm extends Component {
             value={ value }
           />
         </label>
-        <label htmlFor="description-input">
+        <label htmlFor="descriptions">
           Descrição da despesa:
           <input
             onChange={ this.handleChange }
             name="description"
             type="text"
+            id="descriptions"
             data-testid="description-input"
             value={ description }
           />

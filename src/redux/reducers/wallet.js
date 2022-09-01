@@ -1,5 +1,5 @@
 import { GET_COIN, ASK_ACTION, CHANGE_EXPENSES,
-  EXPENSES_EDIT, ADC_EDIT } from '../actions';
+  EXPENSES_EDIT } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -26,10 +26,6 @@ function wallet(state = INITIAL_STATE, action) {
     ...state,
     editor: action.state,
     idToEdit: +action.id,
-  };
-  case ADC_EDIT: return {
-    ...state,
-    expenses: console.log(action.state),
   };
   default: return state;
   }

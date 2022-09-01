@@ -26,19 +26,39 @@ describe('Test component WalletForm.js', () => {
           },
         ],
         editor: true,
-        idToEdit: 1,
+        idToEdit: 0,
       },
     };
     renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialState });
 
+    const descriptionValue = 'Dólar Americano/Real Brasileiro';
+
+    const askHeading = screen.getByRole('heading', { name: '4.75', level: 3 });
+
+    expect(askHeading).toBeInTheDocument();
+
     const buttonEdit = screen.getByRole('button', { name: /editar despesa/i });
 
     const textReal = screen.getAllByText('Real');
+
+    const inputDescription = screen.getByLabelText('Descrição da despesa:');
+
+    expect(inputDescription).toBeInTheDocument();
+
+    userEvent.type(inputDescription, descriptionValue);
+
+    expect(inputDescription).toHaveValue(descriptionValue);
 
     expect(textReal[0]).toBeInTheDocument();
 
     expect(buttonEdit).toBeInTheDocument();
 
     userEvent.click(buttonEdit);
+
+    const buttonDelete = screen.getAllByRole('button', { name: /excluir/i });
+
+    expect(buttonDelete[0]).toBeInTheDocument();
+
+    userEvent.click(buttonDelete[0]);
   });
 });

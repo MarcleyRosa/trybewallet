@@ -10,7 +10,7 @@ class Header extends Component {
        + (+curr.exchangeRates[curr.currency].ask * +curr.value), 0).toFixed(2);
     return (
       <div>
-        <span data-testid="total-field">{ ask }</span>
+        <h3 data-testid="total-field">{ ask }</h3>
       </div>
     );
   }
@@ -21,7 +21,7 @@ const mapStateToProps = (state) => ({
 });
 
 Header.propTypes = {
-  requestAsk: PropTypes.arrayOf().isRequired,
+  requestAsk: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Header);

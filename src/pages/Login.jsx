@@ -49,13 +49,12 @@ class Login extends React.Component {
       <div>
         <form action="" onSubmit={ this.handleSubmit }>
           <label htmlFor="emails">
-            {' '}
             Email:
             <input
               onChange={ this.handleChange }
               type="email"
               name="email"
-              id="emai"
+              id="emails"
               data-testid="email-input"
             />
           </label>
@@ -79,7 +78,7 @@ class Login extends React.Component {
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.arrayOf,
+    push: PropTypes.arrayOf(PropTypes.shape()),
   }).isRequired,
 };
 

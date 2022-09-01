@@ -83,9 +83,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Table.propTypes = {
-  requestExpenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  requestExpenses: PropTypes.shape().isRequired,
   map: PropTypes.func.isRequired,
-  newExpenses: PropTypes.arrayOf(PropTypes.string).isRequired,
+  newExpenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   editExpenses: PropTypes.func.isRequired,
 };
 
