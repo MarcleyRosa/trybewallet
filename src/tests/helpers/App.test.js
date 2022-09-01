@@ -17,8 +17,33 @@ describe('Tests do componente App', () => {
 
     expect(pathname).toBe('/');
   });
-  it('', () => {
+  it('Test rota /carteira', () => {
     const { history } = renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });
+
+    const { location: { pathname } } = history;
+
+    expect(pathname).toBe('/carteira');
+  });
+  it('', async () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+
+    const emailValue = 'trybe@trybe.com';
+    const passwordValue = '12345678';
+
+    const inputPassword = screen.getByRole('textbox', { name: /password/ });
+    const inputEmail = screen.getByRole('textbox', { name: /email/i });
+
+    userEvent.type(inputEmail, emailValue);
+    userEvent.type(inputPassword, passwordValue);
+
+    expect(inputEmail).toHaveValue(emailValue);
+    expect(inputPassword).toHaveValue(passwordValue);
+
+    const buttonLogin = await screen.findByRole('button', { name: /entrar/i });
+
+    expect(buttonLogin).toBeInTheDocument();
+
+    userEvent.click(buttonLogin);
 
     const { location: { pathname } } = history;
 

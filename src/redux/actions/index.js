@@ -45,7 +45,6 @@ export const fetchApiCoin = () => {
 };
 
 export const fetchAsk = (state) => {
-  console.log(state);
   const url = 'https://economia.awesomeapi.com.br/json/all';
   return async (dispatch) => {
     try {

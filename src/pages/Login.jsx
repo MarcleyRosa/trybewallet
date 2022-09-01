@@ -55,17 +55,18 @@ class Login extends React.Component {
               onChange={ this.handleChange }
               type="email"
               name="email"
+              id="emai"
               data-testid="email-input"
             />
           </label>
           <label htmlFor="passwords">
-            Senha:
+            Password:
             <input
               onChange={ this.handleChange }
               type="text"
               data-testid="password-input"
               name="password"
-              id=""
+              id="passwords"
             />
           </label>
           <button type="submit" disabled={ isDisable }>Entrar</button>
