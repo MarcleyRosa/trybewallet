@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import '../App.css';
 import { expensesAction, expensesEditAction } from '../redux/actions';
 
 class Table extends Component {
@@ -16,9 +17,9 @@ class Table extends Component {
   };
 
   render() {
-    const { requestExpenses } = this.props;
+    const { requestExpenses, editor, idToEdit } = this.props;
     return (
-      <div>
+      <div className="table-edit">
         <table>
           <tbody>
             <th>Descrição</th>
@@ -32,42 +33,57 @@ class Table extends Component {
             <th>Editar/Excluir</th>
             { requestExpenses
               .map((elem) => (
-                <tr key={ elem.id }>
-                  <td>{elem.description}</td>
-                  <td>{elem.tag}</td>
-                  <td>{elem.method}</td>
-                  <td>{(+elem.value).toFixed(2)}</td>
-                  <td>{elem.exchangeRates[elem.currency].name}</td>
-                  <td>{(+elem.exchangeRates[elem.currency].ask).toFixed(2)}</td>
-                  <td>
+                <tr
+                  className={ editor && elem.id === idToEdit ? 'item-edit' : '' }
+                  key={ elem.id }
+                >
+                  <td id="item-center">{elem.description}</td>
+                  <td id="item-center">{elem.tag}</td>
+                  <td id="item-center">{elem.method}</td>
+                  <td id="item-center">{(+elem.value).toFixed(2)}</td>
+                  <td id="item-center">{elem.exchangeRates[elem.currency].name}</td>
+                  <td
+                    id="item-center"
+                  >
+                    {(+elem.exchangeRates[elem.currency].ask).toFixed(2)}
+
+                  </td>
+                  <td id="item-center">
                     {
                       (+elem.exchangeRates[elem.currency].ask * +elem.value)
                         .toFixed(2)
                     }
                   </td>
-                  <td>Real</td>
-                  <td>
-                    <button
-                      onClick={ this.buttonEdit }
-                      type="button"
-                      data-testid="edit-btn"
-                      id={ elem.id }
-                    >
-                      Editar
-                    </button>
-                    <button
-                      onClick={ this.buttonDelete }
-                      type="button"
-                      data-testid="delete-btn"
-                      id={ elem.id }
-                    >
-                      Excluir
-                    </button>
+                  <td id="item-center">Real</td>
+                  <td id="item-center">
+                    { !editor && (
+                      <div>
+                        <button
+                          onClick={ this.buttonEdit }
+                          type="button"
+                          data-testid="edit-btn"
+                          id={ elem.id }
+                          className="edit-button"
+                        >
+                          Editar
+                        </button>
+                        <button
+                          onClick={ this.buttonDelete }
+                          type="button"
+                          data-testid="delete-btn"
+                          id={ elem.id }
+                          className="delete-button"
+                        >
+                          Excluir
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
+        { editor && <h2 className="text-edit">Editando despesa</h2>}
       </div>
     );
   }
@@ -75,6 +91,8 @@ class Table extends Component {
 
 const mapStateToProps = (state) => ({
   requestExpenses: state.wallet.expenses,
+  editor: state.wallet.editor,
+  idToEdit: state.wallet.idToEdit,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -87,6 +105,8 @@ Table.propTypes = {
   map: PropTypes.func.isRequired,
   newExpenses: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   editExpenses: PropTypes.func.isRequired,
+  editor: PropTypes.bool.isRequired,
+  idToEdit: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import '../App.css';
 import { saveEmailAction } from '../redux/actions';
 // import store from '../redux/store';
 
@@ -47,28 +48,38 @@ class Login extends React.Component {
     const { isDisable } = this.state;
     return (
       <div>
-        <form action="" onSubmit={ this.handleSubmit }>
-          <label htmlFor="emails">
-            Email:
-            <input
-              onChange={ this.handleChange }
-              type="email"
-              name="email"
-              id="emails"
-              data-testid="email-input"
-            />
-          </label>
-          <label htmlFor="passwords">
-            Password:
-            <input
-              onChange={ this.handleChange }
-              type="text"
-              data-testid="password-input"
-              name="password"
-              id="passwords"
-            />
-          </label>
-          <button type="submit" disabled={ isDisable }>Entrar</button>
+        <form className="login-form" action="" onSubmit={ this.handleSubmit }>
+          <h3>Login</h3>
+          <div>
+            <label htmlFor="emails">
+              Email:
+              <input
+                onChange={ this.handleChange }
+                type="email"
+                name="email"
+                id="emails"
+                data-testid="email-input"
+              />
+            </label>
+            <label htmlFor="passwords">
+              Password:
+              <input
+                onChange={ this.handleChange }
+                type="text"
+                data-testid="password-input"
+                name="password"
+                id="passwords"
+              />
+            </label>
+          </div>
+          <button
+            className={ isDisable ? 'disabled' : 'button-login' }
+            type="submit"
+            disabled={ isDisable }
+          >
+            <span className="span">Entrar</span>
+
+          </button>
         </form>
       </div>
     );
