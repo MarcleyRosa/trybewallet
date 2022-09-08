@@ -14,9 +14,12 @@ class Header extends Component {
       <div className="back-color">
         <h5 data-testid="email-field">{ `Email: ${requestEmail}` }</h5>
 
-        <h5 data-testid="total-field">{ `Despesa Total: R$ ${ask} ${currency}` }</h5>
-        <h5 data-testid="header-currency-field">{}</h5>
+        <h5>
+          Despesa Total: R$ $
+          <span data-testid="total-field">{ask}</span>
+          <span data-testid="header-currency-field">{currency}</span>
 
+        </h5>
       </div>
     );
   }

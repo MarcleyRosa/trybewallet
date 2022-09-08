@@ -33,10 +33,6 @@ describe('Test component WalletForm.js', () => {
 
     const descriptionValue = 'Dólar Americano/Real Brasileiro';
 
-    const askHeading = screen.getByRole('heading', { name: '4.75', level: 3 });
-
-    expect(askHeading).toBeInTheDocument();
-
     const buttonEdit = screen.getByRole('button', { name: /editar despesa/i });
 
     const textReal = screen.getAllByText('Real');

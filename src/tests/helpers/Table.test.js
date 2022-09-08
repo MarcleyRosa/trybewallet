@@ -58,8 +58,8 @@ describe('Test do componente Table.js', () => {
     };
     renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialState });
 
-    const testEmail = screen.getByText('tryber@teste.com');
-    const textCoin = screen.getByText('BRL');
+    const testEmail = screen.getByText(/tryber@teste.com/i);
+    const textCoin = screen.getByText(/BRL/i);
 
     expect(textCoin).toBeInTheDocument();
     expect(testEmail).toBeInTheDocument();
@@ -76,14 +76,14 @@ describe('Test do componente Table.js', () => {
 
     const buttonAdc = screen.getByRole('button', { name: /adicionar despesa/i });
 
-    // global.fetch = jest.fn(() => Promise.resolve({
-    //   json: () => Promise.resolve(mockData),
-    // }));
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(mockData),
+    }));
 
     userEvent.click(buttonAdc);
 
-    // await waitFor(() => expect(global.fetch).toBeCalledTimes(1));
-    // expect(global.fetch).toBeCalledWith('https://economia.awesomeapi.com.br/json/all');
+    await waitFor(() => expect(global.fetch).toBeCalledTimes(1));
+    expect(global.fetch).toBeCalledWith('https://economia.awesomeapi.com.br/json/all');
   });
   it('Verifica todos os select', async () => {
     renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'] });

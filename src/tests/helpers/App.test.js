@@ -96,11 +96,20 @@ describe('Tests do componente App', () => {
     };
     renderWithRouterAndRedux(<App />, { initialEntries: ['/carteira'], initialState });
 
-    const buttonEdit = screen.getAllByRole('button', { name: /editar/i });
-    console.log(buttonEdit);
+    const valueText = screen.getByText('Despesa Total: R$ 4.75 BRL');
 
-    expect(buttonEdit[1]).toBeInTheDocument();
+    expect(valueText).toBeInTheDocument();
 
-    userEvent.click(buttonEdit[1]);
+    const buttonDespesa = screen.getByRole('button', { name: 'Editar despesa' });
+
+    expect(buttonDespesa).toBeInTheDocument();
+
+    userEvent.click(buttonDespesa);
+
+    const buttonEdit = screen.getByRole('button', { name: 'Editar' });
+
+    expect(buttonEdit).toBeInTheDocument();
+
+    userEvent.click(buttonEdit);
   });
 });

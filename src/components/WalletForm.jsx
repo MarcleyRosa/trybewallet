@@ -31,7 +31,6 @@ class WalletForm extends Component {
     const { dispatch } = this.props;
     if (target.id === 'edit') {
       const { requestExpenses, idEdit } = this.props;
-      console.log(this.state);
       const exchanges = requestExpenses[idEdit].exchangeRates;
       requestExpenses[idEdit] = this.state;
       requestExpenses[idEdit].id = idEdit;
